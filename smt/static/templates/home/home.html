@@ -1,0 +1,106 @@
+<!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+
+<!-- Fonts & Icon Pack -->
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+ <!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+<!-- Navbar -->
+<nav>
+	<div class="nav-wrapper" style="padding-left: 10px">
+    	<a href="#" class="brand-logo">Web Based SMT</a>
+    </div>
+</nav>
+
+<div ng-controller="HomeController" class="md-padding" ng-cloak="" flex>
+
+ <!--Input Form-->
+ <div class="row">
+    <form class="col s12">
+      	<div class="row">
+
+	      	<!-- Langualge Input Form -->
+	        <div class="input-field col s6">
+
+	        	<!-- Input Text Area -->
+	          	<textarea id="icon_prefix2" id="input" ng-model="input" class="materialize-textarea" style="padding-top: 20%"></textarea>
+	          	<label for="textarea1"><i class="material-icons">mode_edit</i> Input</label>
+
+	        </div>
+
+	        <!-- Language Output Form -->
+	        <div class="input-field col s6">
+
+	        	<!-- Output Text Area -->
+	          	<textarea id="textarea1" class="materialize-textarea" style="padding-top: 20%"disabled="disabled">{{output}}</textarea>
+	          	<label for="textarea1"><i class="material-icons">chat_bubble_outline</i></label>
+
+	        </div>
+
+	        <!-- Dubmit Button -->
+	        <div class="input-field col s12">
+	        	<a class="waves-effect waves-light btn-large green" type="submit" style="width: 100%" ng-click="translate()">Translate</a>
+	        </div>
+
+      	</div>
+    </form>
+ </div>
+<hr>
+ <!-- Cards -->
+<div class="row">
+	<div class="col s12">
+		<row>
+		  	  <!-- Bleu Score Card -->
+		      <div class="col s4">
+
+		      	<div class="chip" style="width: 100%">
+		      		<i class="material-icons">message</i>
+    				<p>Input Size : {{inputSize}}</p>  
+  				</div>
+  				<hr>
+		        <div class="card-panel blue-grey darken-1">
+		          <span class="white-text"><h4>Blue Score</h4>
+		          <hr>
+		          <h6>{{bleu_score}}</h6> 
+		          </span>
+		        </div>
+		      </div>
+
+		      <!-- Metro Score Card -->
+		      <div class="col s4">
+
+		      	<div class="chip" style="width: 100%">
+		      		<i class="material-icons">query_builder</i>
+    				<p>Translation Duration : {{translationDuration}}</p>
+  				</div>
+  				<hr>
+		        <div class="card-panel blue-grey darken-1">
+		          <span class="white-text"><h4>Metro Score</h4>
+		          <hr>
+		          <h6>{{meteor_score}}</h6> 
+		          </span>
+		        </div>
+		      </div>
+
+		      <!-- Nist Score Card -->
+		      <div class="col s4">
+
+		      	<div class="chip" style="width: 100%">
+		      		<i class="material-icons">message</i>
+    				<p>Output Size : {{outputSize}}</p>
+  				</div>
+  				<hr>
+		        <div class="card-panel blue-grey darken-1">
+		          <span class="white-text"><h4>Nist Score</h4>
+		          <hr>
+		          <h6>{{nist_score}}</h6> 
+		          </span>
+		        </div>
+		      </div>
+		</row>
+	</div>
+</div>
+</div>
