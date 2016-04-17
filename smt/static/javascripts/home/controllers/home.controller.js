@@ -6,8 +6,9 @@
     .module('smt.home.controllers')
     .controller('HomeController', [ '$scope', 'Home', function($scope, Home) {
 
-		Home.bleu_score("some input", "some output").then(getBleuScoreSuccessFn, getBleuScoreErrorFn);
-
+		$scope.bleu_score = 0;
+		$scope.meteor_score = 0;
+		$scope.nist_score = 0;
 		function getBleuScoreSuccessFn(data, status, headers, config) {
 			$scope.bleu_score = data.data;
 		}
@@ -16,7 +17,6 @@
 			console.log(data.data);
 		}
 
-		Home.meteor_score("some input", "some output").then(getMeteorScoreSuccessFn, getMeteorScoreErrorFn);
 
 		function getMeteorScoreSuccessFn(data, status, headers, config) {
 			$scope.meteor_score = data.data;
@@ -26,7 +26,6 @@
 			console.log(data.data);
 		}
 
-		Home.nist_score("some input", "some output").then(getNistScoreSuccessFn, getNistScoreErrorFn);
 
 		function getNistScoreSuccessFn(data, status, headers, config) {
 			$scope.nist_score = data.data;
@@ -48,6 +47,7 @@
 		$scope.outputSize = "0";
 
 		$scope.translate = function() {
+			$scope.running = true;
 			Home.translate($scope.input).then(translateScoreSuccessFn, translateScoreErrorFn);
 		}
 
@@ -56,10 +56,15 @@
 			$scope.inputSize = data.data.INPUT_SIZE;
 			$scope.outputSize = data.data.OUTPUT_SIZE;
 			$scope.translationDuration = data.data.DURATION;
+			$scope.running = false;
+			Home.bleu_score($scope.input, $scope.output).then(getBleuScoreSuccessFn, getBleuScoreErrorFn);
+			Home.meteor_score($scope.input, $scope.output).then(getMeteorScoreSuccessFn, getMeteorScoreErrorFn);
+			Home.nist_score($scope.input, $scope.output).then(getNistScoreSuccessFn, getNistScoreErrorFn);
 		}
 
 		function translateScoreErrorFn(data, status, headers, config) {
 			console.log(data);
+			$scope.running = false;
 		}
 
 
