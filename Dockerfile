@@ -115,8 +115,14 @@ WORKDIR /home/moses/moses-models/
 RUN mkdir working
 WORKDIR /home/moses/moses-models/working/
 
-RUN nohup nice /home/moses/mosesdecoder/scripts/training/train-model.perl -root-dir train -corpus /home/moses/moses-models/corpus/tdc -f pt -e en -alignment grow-diag-final-and -reordering msd-bidirectional-fe -lm 0:3:/home/moses/moses-models/lm/lm.blm.en:8 -external-bin-dir /home/moses/external-bin-dir/ 
+#RUN nohup nice /home/moses/mosesdecoder/scripts/training/train-model.perl -root-dir train -corpus /home/moses/moses-models/corpus/tdc -f pt -e en -alignment grow-diag-final-and -reordering msd-bidirectional-fe -lm 0:3:/home/moses/moses-models/lm/lm.blm.en:8 -external-bin-dir /home/moses/external-bin-dir/ 
 
-RUN cp /home/moses/moses-models/working/train/model/* /home/moses/moses-models/sample-models/phrase-model/
+#RUN cp /home/moses/moses-models/working/train/model/* /home/moses/moses-models/sample-models/phrase-model/
+
+WORKDIR /home/moses/moses-models 
+RUN nohup nice /home/moses/mosesdecoder/bin/moses -f /home/moses/moses-models/working/train/model/moses.ini < /home/moses/moses-models/corpus/tdt.pt > result  2> trans.out 
+
+RUN /home/moses/mosesdecoder/scripts/generic/multi-bleu.perl -lc /home/moses/moses-models/corpus/tdt.en < result
+
 
 WORKDIR /home/moses/Downloads/moses-api
